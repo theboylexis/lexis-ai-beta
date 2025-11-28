@@ -170,7 +170,7 @@ const Flashcards: React.FC = () => {
                     <button
                         disabled={isGenerating || !topic || !selectedSub}
                         onClick={handleGenerate}
-                        className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg disabled:opacity-50"
+                        className="max-w-sm mx-auto w-full py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg disabled:opacity-50"
                     >
                         {isGenerating ? 'Generating…' : 'Generate Flashcards'}
                     </button>
@@ -199,7 +199,7 @@ const Flashcards: React.FC = () => {
 
     // ------------------------ UI: REVIEW MODE ------------------------
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50/30 py-8">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-white py-8">
             {/* Card Count + Navigation */}
             <div className="w-full max-w-2xl flex justify-between items-center mb-6 px-2">
                 <span className="text-xs font-bold text-gray-400">
@@ -279,7 +279,7 @@ const Flashcards: React.FC = () => {
                     <button
                         onClick={handleGradeAnswer}
                         disabled={!userAnswer.trim() || grading === 'loading' || grading === 'done'}
-                        className="max-w-sm w-full py-3 bg-blue-600 text-white rounded-2xl font-bold text-lg mb-2"
+                        className="w-64 py-2 bg-blue-600 text-white rounded-2xl font-bold text-base mb-2"
                     >
                         {grading === 'loading' ? 'Grading…' : 'Submit Answer'}
                     </button>
@@ -297,7 +297,7 @@ const Flashcards: React.FC = () => {
                     <button
                         disabled={grading !== 'done'}
                         onClick={() => setIsFlipped(true)}
-                        className={`max-w-sm w-full py-3 rounded-2xl font-bold text-lg ${
+                        className={`w-64 py-2 rounded-2xl font-bold text-base ${
                             grading === 'done'
                                 ? 'bg-indigo-600 text-white'
                                 : 'bg-gray-200 text-gray-400'

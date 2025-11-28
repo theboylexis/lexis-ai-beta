@@ -56,7 +56,7 @@ const Library: React.FC = () => {
                 );
             };
             return (
-                <div className="p-6 bg-blue-50 min-h-full">
+                <div className="p-6 bg-white min-h-full">
                     <h2 className="text-2xl font-bold text-blue-700 mb-6">Library</h2>
                     <div className="grid grid-cols-2 gap-4">
                         {user?.subjects.map(sub => (

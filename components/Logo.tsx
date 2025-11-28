@@ -4,7 +4,7 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "w-10 h-10"
   return (
     <div className={`relative flex items-center justify-center ${className} group`}>
       {/* Background Shape */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-200 transform rotate-3 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110 group-hover:shadow-indigo-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-xl shadow-lg shadow-blue-200 transform rotate-3 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110 group-hover:shadow-blue-300"></div>
       
       {/* SVG Icon: Stylized AI Brain */}
       <svg 

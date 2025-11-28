@@ -65,7 +65,7 @@ const Exams: React.FC = () => {
                 );
             };
             return (
-                <div className="p-6 bg-blue-50 min-h-full">
+                <div className="p-6 bg-white min-h-full">
                     <h2 className="text-2xl font-bold text-blue-700 mb-6">Mock Exams (WASSCE/BECE)</h2>
                     <p className="text-sm text-blue-500 mb-4">Select a subject to start a quick 5-question drill.</p>
                     <div className="grid grid-cols-2 gap-4">

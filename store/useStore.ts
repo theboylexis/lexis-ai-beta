@@ -6,7 +6,11 @@ interface AppState {
   // User Profile
   user: UserProfile | null;
   setUser: (user: UserProfile) => void;
-  
+
+  // Daily Goal
+  dailyGoalMinutes: number;
+  setDailyGoalMinutes: (minutes: number) => void;
+
   // Dashboard Stats
   stats: DashboardStats;
   incrementStudyTime: (minutes: number) => void;
@@ -21,7 +25,7 @@ interface AppState {
   messages: ChatMessage[];
   addMessage: (msg: ChatMessage) => void;
   clearMessages: () => void;
-  
+
   // Bridge for Flashcard -> Tutor Explanation
   pendingTutorQuery: string | null;
   setPendingTutorQuery: (query: string | null) => void;
@@ -30,7 +34,7 @@ interface AppState {
   flashcards: Flashcard[];
   addFlashcards: (cards: Flashcard[]) => void;
   updateFlashcard: (updatedCard: Flashcard) => void;
-  
+
   // Planner
   weeklyPlan: WeeklyPlan | null;
   setWeeklyPlan: (plan: WeeklyPlan) => void;
@@ -44,7 +48,10 @@ export const useStore = create<AppState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
-      
+
+      dailyGoalMinutes: 30,
+      setDailyGoalMinutes: (minutes) => set({ dailyGoalMinutes: minutes }),
+
       stats: {
         totalStudyMinutes: 0,
         cardsReviewed: 0,

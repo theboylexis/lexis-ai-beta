@@ -45,6 +45,7 @@ export interface UserProfile {
   grade: UserGrade;
   subjects: Subject[];
   setupComplete: boolean;
+  dailyGoalMinutes?: number;
 }
 
 export interface ChatMessage {

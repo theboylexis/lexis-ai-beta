@@ -13,7 +13,7 @@ const QUOTES = [
 ];
 
 const Dashboard: React.FC = () => {
-  const { user, stats } = useStore();
+  const { user, stats, dailyGoalMinutes } = useStore();
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
 
   const data = [
     { name: 'Completed', value: stats.totalStudyMinutes },
-    { name: 'Remaining', value: Math.max(0, 120 - stats.totalStudyMinutes) }, // Goal 2 hours
+    { name: 'Remaining', value: Math.max(0, dailyGoalMinutes - stats.totalStudyMinutes) },
   ];
   const COLORS = ['#3b82f6', '#f1f5f9'];
 
@@ -49,7 +49,7 @@ const Dashboard: React.FC = () => {
                 <Logo className="w-8 h-8 opacity-90" />
                 <h2 className="text-2xl font-bold tracking-tight">Hello, {user?.name.split(' ')[0]}!</h2>
             </div>
-            <p className="text-blue-100 text-sm font-medium opacity-90 ml-1">Your daily goal is 2 hours. Keep going!</p>
+            <p className="text-blue-100 text-sm font-medium opacity-90 ml-1">Your daily goal is {dailyGoalMinutes} minutes. Keep going!</p>
             
             <div className="mt-6 flex items-center gap-3">
                 <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-xl px-4 py-2.5 flex flex-col min-w-[80px]">
@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
       <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
         <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-gray-900">Daily Progress</h3>
-            <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-1 rounded-lg">Goal: 120m</span>
+            <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-1 rounded-lg">Goal: {dailyGoalMinutes}m</span>
         </div>
         <div className="h-48 w-full flex items-center justify-center relative">
              <ResponsiveContainer width="100%" height="100%">
@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
                 </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-4xl font-bold text-gray-900 tracking-tighter">{Math.min(100, Math.round((stats.totalStudyMinutes / 120) * 100))}%</span>
+                <span className="text-4xl font-bold text-gray-900 tracking-tighter">{Math.min(100, Math.round((stats.totalStudyMinutes / dailyGoalMinutes) * 100))}%</span>
                 <span className="text-xs text-gray-400 font-medium mt-1">COMPLETED</span>
             </div>
         </div>
