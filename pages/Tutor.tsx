@@ -4,28 +4,37 @@ import { generateTutorResponse } from '../services/geminiService';
 import { ChatMessage, Subject, TutorMode } from '../types';
 
 const SubjectIcon: React.FC<{ subject: Subject, className?: string }> = ({ subject, className = "w-6 h-6" }) => {
-    // Basic mapping of subjects to SVG paths or generic icons
-    let path = "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"; // Book
-    let color = "text-blue-500 bg-blue-50";
-
-    if (subject.includes('Math')) {
-        path = "M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"; // Calculator
-        color = "text-orange-500 bg-orange-50";
-    } else if (subject.includes('Science') || subject.includes('Chemistry') || subject.includes('Physics') || subject.includes('Biology')) {
-        path = "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"; // Flask
-        color = "text-green-500 bg-green-50";
-    } else if (subject.includes('ICT')) {
-        path = "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"; // Computer
-        color = "text-purple-500 bg-purple-50";
-    }
-
-    return (
-        <div className={`p-2.5 rounded-xl ${color} flex items-center justify-center shrink-0`}>
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d={path} />
-            </svg>
-        </div>
-    );
+        // Book icon with different colors per subject
+        const colorMap: Record<string, string> = {
+          'English Language': 'text-blue-600',
+          'Integrated Science': 'text-green-600',
+          'Mathematics': 'text-purple-600',
+          'ICT': 'text-pink-600',
+          'RME': 'text-yellow-600',
+          'Social Studies': 'text-red-500',
+          'Ghanaian Language': 'text-orange-500',
+          'Creative Arts': 'text-indigo-500',
+          'Career Technology': 'text-teal-500',
+          'History': 'text-amber-700',
+          'French': 'text-blue-400',
+          'Elective Maths': 'text-fuchsia-600',
+          'Physics': 'text-cyan-600',
+          'Chemistry': 'text-lime-600',
+          'Biology': 'text-emerald-600',
+          'Economics': 'text-rose-600',
+          'Government': 'text-violet-600',
+          'Literature-in-English': 'text-pink-400',
+          'Geography': 'text-green-700',
+          'Business Management': 'text-yellow-700',
+          'Financial Accounting': 'text-gray-700',
+        };
+        return (
+            <div className="p-2.5 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" className={className + ' ' + (colorMap[subject] || 'text-gray-400')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            </div>
+        );
 };
 
 const Tutor: React.FC = () => {
@@ -123,30 +132,27 @@ const Tutor: React.FC = () => {
   // --- SUBJECT HUB VIEW ---
   if (!currentSubject) {
     return (
-        <div className="p-6 h-full flex flex-col bg-gray-50/50">
+        <div className="p-6 h-full flex flex-col bg-blue-50 min-h-full">
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Subject Hub</h2>
-                <p className="text-gray-500 text-sm">Select a subject to begin learning.</p>
+                <h2 className="text-2xl font-bold text-blue-700 tracking-tight">Subject Hub</h2>
+                <p className="text-blue-500 text-sm">Select a subject to begin learning.</p>
             </div>
-            
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 overflow-y-auto pb-20">
                 {user?.subjects.map(sub => (
                     <button
                         key={sub}
                         onClick={() => setCurrentSubject(sub)}
-                        className="group relative flex flex-col items-center justify-center p-6 bg-white border border-gray-100 rounded-3xl shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-lg hover:border-blue-100 hover:-translate-y-1 transition-all duration-300"
+                        className="group relative flex flex-col items-center justify-center p-6 bg-white border border-blue-100 rounded-3xl shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-lg hover:border-blue-500 hover:-translate-y-1 transition-all duration-300"
                     >
-                        <SubjectIcon subject={sub} className="w-8 h-8 text-white" />
-                        <span className="mt-4 text-xs font-bold text-gray-700 text-center uppercase tracking-wide group-hover:text-blue-600 transition-colors">{sub}</span>
-                        
+                        <SubjectIcon subject={sub} className="w-8 h-8" />
+                        <span className="mt-4 text-xs font-bold text-blue-700 text-center uppercase tracking-wide group-hover:text-blue-600 transition-colors">{sub}</span>
                         <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
                         </div>
                     </button>
                 ))}
-                
                 {/* Add Subject Button Placeholder */}
-                <button className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-200 rounded-3xl hover:border-gray-300 hover:bg-gray-50 transition-all text-gray-300 hover:text-gray-400">
+                <button className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-blue-200 rounded-3xl hover:border-blue-300 hover:bg-blue-100 transition-all text-blue-300 hover:text-blue-400">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
@@ -236,10 +242,9 @@ const Tutor: React.FC = () => {
 
         {isLoading && (
             <div className="flex justify-start">
-                <div className="bg-white border border-gray-100 px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm flex gap-1.5">
-                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce"></div>
-                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce delay-75"></div>
-                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce delay-150"></div>
+                <div className="bg-white border border-gray-100 px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm flex items-center gap-2">
+                   <div className="w-4 h-4 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin mr-2"></div>
+                   <span className="text-sm font-semibold text-blue-600">Thinking...</span>
                 </div>
             </div>
         )}

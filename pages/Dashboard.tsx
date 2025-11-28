@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
     <div className="p-5 space-y-6">
       
       {/* Welcome Card */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 rounded-3xl p-7 text-white shadow-xl shadow-indigo-200/50">
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-400 rounded-3xl p-7 text-white shadow-xl shadow-blue-200/50">
         <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
                 <Logo className="w-8 h-8 opacity-90" />
@@ -65,20 +65,20 @@ const Dashboard: React.FC = () => {
         
         {/* Decorational Circle */}
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-white opacity-5 rounded-full blur-2xl pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-32 h-32 bg-indigo-500 opacity-20 rounded-full blur-xl pointer-events-none"></div>
+        <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-500 opacity-20 rounded-full blur-xl pointer-events-none"></div>
       </div>
 
       {/* Daily Wisdom */}
-      <div className="bg-amber-50 rounded-2xl p-5 border border-amber-100 relative overflow-hidden">
+      <div className="bg-blue-50 rounded-2xl p-5 border border-blue-100 relative overflow-hidden">
           <div className="relative z-10">
-            <h3 className="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2 flex items-center gap-2">
+            <h3 className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/></svg>
                 Daily Wisdom
             </h3>
             <p className="text-gray-800 text-sm italic font-medium leading-relaxed">"{dailyQuote.text}"</p>
             <p className="text-gray-500 text-xs mt-2 font-semibold">— {dailyQuote.author}</p>
           </div>
-          <div className="absolute top-0 right-0 -mt-2 -mr-2 w-16 h-16 bg-amber-100 rounded-full opacity-50 blur-xl"></div>
+          <div className="absolute top-0 right-0 -mt-2 -mr-2 w-16 h-16 bg-blue-100 rounded-full opacity-50 blur-xl"></div>
       </div>
 
       {/* Stats Grid */}

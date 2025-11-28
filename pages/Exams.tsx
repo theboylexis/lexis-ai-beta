@@ -33,23 +33,55 @@ const Exams: React.FC = () => {
   };
 
   if (!selectedSubject) {
-      return (
-          <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Mock Exams (WASSCE/BECE)</h2>
-              <p className="text-sm text-gray-500 mb-4">Select a subject to start a quick 5-question drill.</p>
-              <div className="grid grid-cols-2 gap-4">
-                  {user?.subjects.map(sub => (
-                      <button 
-                        key={sub}
-                        onClick={() => setSelectedSubject(sub)}
-                        className="p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:border-blue-500 hover:shadow-md transition-all text-left font-semibold text-gray-700 text-sm"
-                      >
-                          {sub}
-                      </button>
-                  ))}
-              </div>
-          </div>
-      );
+            // Book icon with different colors per subject
+            const getBookIcon = (subject: string) => {
+                const colorMap: Record<string, string> = {
+                    'English Language': 'text-blue-600',
+                    'Integrated Science': 'text-green-600',
+                    'Mathematics': 'text-purple-600',
+                    'ICT': 'text-pink-600',
+                    'RME': 'text-yellow-600',
+                    'Social Studies': 'text-red-500',
+                    'Ghanaian Language': 'text-orange-500',
+                    'Creative Arts': 'text-indigo-500',
+                    'Career Technology': 'text-teal-500',
+                    'History': 'text-amber-700',
+                    'French': 'text-blue-400',
+                    'Elective Maths': 'text-fuchsia-600',
+                    'Physics': 'text-cyan-600',
+                    'Chemistry': 'text-lime-600',
+                    'Biology': 'text-emerald-600',
+                    'Economics': 'text-rose-600',
+                    'Government': 'text-violet-600',
+                    'Literature-in-English': 'text-pink-400',
+                    'Geography': 'text-green-700',
+                    'Business Management': 'text-yellow-700',
+                    'Financial Accounting': 'text-gray-700',
+                };
+                return (
+                    <svg className={`w-7 h-7 mr-2 ${colorMap[subject] || 'text-gray-400'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                );
+            };
+            return (
+                <div className="p-6 bg-blue-50 min-h-full">
+                    <h2 className="text-2xl font-bold text-blue-700 mb-6">Mock Exams (WASSCE/BECE)</h2>
+                    <p className="text-sm text-blue-500 mb-4">Select a subject to start a quick 5-question drill.</p>
+                    <div className="grid grid-cols-2 gap-4">
+                        {user?.subjects.map(sub => (
+                            <button 
+                                key={sub}
+                                onClick={() => setSelectedSubject(sub)}
+                                className="flex items-center p-4 bg-white border border-blue-100 rounded-2xl shadow-sm hover:border-blue-500 hover:shadow-md transition-all text-left font-semibold text-blue-700 text-sm"
+                            >
+                                {getBookIcon(sub)}
+                                {sub}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
   }
 
   if (loading) {
@@ -69,7 +101,7 @@ const Exams: React.FC = () => {
           </div>
 
           {questions.length === 0 ? (
-              <div className="text-center mt-10">
+              <div className="flex justify-center mt-10">
                   <button onClick={handleStart} className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg">Start Exam</button>
               </div>
           ) : (
