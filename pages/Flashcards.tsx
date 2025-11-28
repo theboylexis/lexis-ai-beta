@@ -96,7 +96,7 @@ const Flashcards: React.FC = () => {
             [
                 { role: 'user', parts: [{ text: `Question: ${card.front}\nSuggested Answer: ${card.back}\nStudent Answer: ${userAnswer}` }] }
             ],
-            `Grade the student's answer to the flashcard question. Give feedback and a brief correction if needed.`,
+            `Grade the student's answer to the flashcard question. Give feedback and a brief correction if needed. Also, provide a score out of ten for the student's answer, formatted as: Score: X/10.`,
             user.grade,
             card.subject as Subject
         );
@@ -230,8 +230,8 @@ const Flashcards: React.FC = () => {
 
             {/* CARD */}
             <div
-                onClick={() => setIsFlipped(!isFlipped)}
-                className="relative w-full max-w-2xl min-h-[180px] max-h-[320px] flex items-center justify-center mb-6 cursor-pointer"
+                onClick={() => grading === 'done' && setIsFlipped(!isFlipped)}
+                className={`relative w-full max-w-2xl min-h-[180px] max-h-[320px] flex items-center justify-center mb-6 ${grading === 'done' ? 'cursor-pointer' : 'cursor-not-allowed opacity-60'}`}
             >
                 <div
                     className={`absolute inset-0 transition-transform duration-500`}
@@ -286,6 +286,12 @@ const Flashcards: React.FC = () => {
                     {grading === 'done' && (
                         <div className="w-full max-w-sm bg-blue-50 border border-blue-200 p-4 rounded-2xl text-blue-700 text-base mb-2">
                             <strong>AI Feedback: </strong> {aiFeedback}
+                            <div className="mt-2 font-bold text-indigo-700">
+                                {(() => {
+                                    const match = aiFeedback.match(/Score:\s*(\d{1,2})\/10/i);
+                                    return match ? `Score: ${match[1]}/10` : '';
+                                })()}
+                            </div>
                         </div>
                     )}
                     <button
